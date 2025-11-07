@@ -9,13 +9,13 @@ stockfish = Stockfish(path="/usr/games/stockfish")
 def bestmove():
     data = request.get_json()
     fen = data.get("fen")
-    depth = data.get("depth", 8)   # default depth = 8
+    depth = data.get("depth", 8)
 
     if not fen:
         return jsonify({"error": "FEN required"}), 400
 
     stockfish.set_fen_position(fen)
-    stockfish.update_engine_parameters({"Depth": depth})
+    stockfish.set_depth(depth)
 
     move = stockfish.get_best_move()
 
